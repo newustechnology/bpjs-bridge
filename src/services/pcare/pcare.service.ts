@@ -1,11 +1,20 @@
 // src/services/PcareService.ts
+import Redis from "ioredis";
 import { configType } from "../../core/configHelper";
 import { FktpService } from "../fktp.service";
 
-// Template untuk Service yang bisa dipakai secara dinamis
+/**
+ * Service untuk mengakses endpoint PCare BPJS
+ */
 export class PcareService extends FktpService {
-  constructor(config: configType) {
-    super(config);
+  /**
+   * Constructor PcareService
+   * @param config konfigurasi BPJS
+   * @param redisClient instance Redis (opsional)
+   * @param chachePrefix prefix untuk cache Redis (opsional)
+   */
+  constructor(config: configType, redisClient?: Redis, chachePrefix?: string) {
+    super(config, redisClient, chachePrefix ?? "pcare");
   }
   /**
    *
