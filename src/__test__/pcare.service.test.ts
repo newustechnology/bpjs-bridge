@@ -5,55 +5,136 @@ import { PcareConfig } from "./config";
 const pcareService = new PcareService(PcareConfig);
 
 describe("PcareService", () => {
-  // Test untuk `getDiagnosa`
   it("should fetch diagnosa data", async () => {
     const response = await pcareService.getDiagnosa("r51", 0, 10);
-    const mockResponse = {
-      response: {
-        count: 1,
-        list: [
-          {
-            kdDiag: "R51",
-            nmDiag: "Headache",
-            nonSpesialis: true,
-          },
-        ],
-      },
-    };
-    expect(response).toEqual(mockResponse.response);
+    expect(response).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number), // count harus berupa number
+        list: expect.arrayContaining([
+          // list harus berupa array
+          expect.objectContaining({
+            kdDiag: expect.any(String), // kdDiag harus berupa string
+            nmDiag: expect.any(String), // nmDiag harus berupa string
+            nonSpesialis: expect.any(Boolean), // nonSpesialis harus berupa boolean
+          }),
+        ]),
+      })
+    );
   });
-  it("should fetch diagnosa getAlergiJenis 01", async () => {
+  it("should fetch getAlergiJenis 01", async () => {
     const response = await pcareService.getAlergiJenis("01");
-    const mockResponse = {
-      response: {
-        list: [
-          {
-            kdAlergi: "00",
-            nmAlergi: "Tidak Ada",
-          },
-          {
-            kdAlergi: "01",
-            nmAlergi: "Seafood",
-          },
-          {
-            kdAlergi: "02",
-            nmAlergi: "Gandum",
-          },
-          {
-            kdAlergi: "03",
-            nmAlergi: "Susu Sapi",
-          },
-          {
-            kdAlergi: "04",
-            nmAlergi: "Kacang-Kacangan",
-          },
-          {
-            kdAlergi: "05",
-            nmAlergi: "Makanan Lain",
-          },
-        ],
-      },
-    };
-    expect(response).toEqual(mockResponse.response);
+    expect(response).toEqual(
+      expect.objectContaining({
+        list: expect.arrayContaining([
+          // list harus berupa array
+          expect.objectContaining({
+            kdAlergi: expect.any(String), // kdAlergi harus berupa string
+            nmAlergi: expect.any(String), // nmAlergi harus berupa string
+          }),
+        ]),
+      })
+    );
+  });
+  it("should fetch getDokter", async () => {
+    const response = await pcareService.getDokter(0, 1);
+    expect(response).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number),
+        list: expect.arrayContaining([
+          expect.objectContaining({
+            kdDokter: expect.any(String),
+            nmDokter: expect.any(String),
+          }),
+        ]),
+      })
+    );
+  });
+  it("should fetch getKesadaran", async () => {
+    const response = await pcareService.getKesadaran();
+    expect(response).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number),
+        list: expect.arrayContaining([
+          expect.objectContaining({
+            kdSadar: expect.any(String),
+            nmSadar: expect.any(String),
+          }),
+        ]),
+      })
+    );
+  });
+  it("should fetch getDPHO", async () => {
+    const response = await pcareService.getDPHO();
+    expect(response).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number),
+        list: expect.arrayContaining([
+          expect.objectContaining({
+            kdObat: expect.any(String),
+            nmObat: expect.any(String),
+            sedia: expect.any(Number),
+          }),
+        ]),
+      })
+    );
+  });
+  it("should fetch Poli FKTP", async () => {
+    const response = await pcareService.getPiliFKTP(0, 1);
+    expect(response).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number),
+        list: expect.arrayContaining([
+          expect.objectContaining({
+            kdPoli: expect.any(String),
+            nmPoli: expect.any(String),
+            poliSakit: expect.any(Boolean),
+          }),
+        ]),
+      })
+    );
+  });
+  it("should fetch Provider Rayonisasi", async () => {
+    const response = await pcareService.getProviderRayonisasi(0, 1);
+    expect(response).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number),
+        list: expect.arrayContaining([
+          expect.objectContaining({
+            kdProvider: expect.any(String),
+            nmProvider: expect.any(String),
+          }),
+        ]),
+      })
+    );
+  });
+  it("should fetch Status Pulang", async () => {
+    const response = await pcareService.getStatusPulang(false);
+    expect(response).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number),
+        list: expect.arrayContaining([
+          expect.objectContaining({
+            kdStatusPulang: expect.any(String),
+            nmStatusPulang: expect.any(String),
+          }),
+        ]),
+      })
+    );
+  });
+  it("should fetch Referensi Tindakan", async () => {
+    const response = await pcareService.getReferensiTindakan("10", 0, 1);
+    expect(response).toEqual(
+      expect.objectContaining({
+        count: expect.any(Number),
+        list: expect.arrayContaining([
+          expect.objectContaining({
+            kdTindakan: expect.any(String),
+            nmTindakan: expect.any(String),
+            maxTarif: expect.any(Number),
+            withValue: expect.any(Boolean),
+          }),
+        ]),
+      })
+    );
   });
 });

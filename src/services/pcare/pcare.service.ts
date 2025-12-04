@@ -7,7 +7,13 @@ export class PcareService extends FktpService {
   constructor(config: configType) {
     super(config);
   }
-  // Contoh penggunaan: memanggil endpoint diagnosa
+  /**
+   *
+   * @param kodediag
+   * @param start
+   * @param limit
+   * @returns
+   */
   async getDiagnosa(
     kodediag: string,
     start: number,
@@ -24,14 +30,12 @@ export class PcareService extends FktpService {
     return response.data;
   }
 
-  async getAlergiJenis(jenisAlergi: "01" | "02" | "03"): Promise<any> {
-    const response = await this.callEndpoint<DataArray<AllergyType>>(
-      "alergi_jenis",
-      { jenisAlergi }
-    );
-    return response.data;
-  }
-
+  /**
+   *
+   * @param start
+   * @param limit
+   * @returns
+   */
   async getDokter(start: number, limit: number): Promise<any> {
     const response = await this.callEndpoint<DataArray<any>>("dokter", {
       start,
@@ -39,15 +43,119 @@ export class PcareService extends FktpService {
     });
     return response.data;
   }
+
+  /**
+   *
+   * @returns
+   */
   async getKesadaran(): Promise<any> {
     const response = await this.callEndpoint<DataArray<any>>("kesadaran");
     return response.data;
   }
 
+  //#OBAT
+
+  /**
+   *
+   * @returns
+   */
+  async getDPHO(): Promise<DataPaginate<getDPHOType>> {
+    const response = await this.callEndpoint<DataPaginate<getDPHOType>>("dpho");
+    return response.data;
+  }
+
+  //
+
+  /**
+   *
+   * @param nomorKunjungan
+   * @returns
+   */
   async getRujukanKunjungan(nomorKunjungan: string): Promise<any> {
     const response = await this.callEndpoint<any>("rujukan_kunjungan", {
       nomorKunjungan,
     });
+    return response.data;
+  }
+
+  // # POLI
+  async getPiliFKTP(
+    start: number,
+    limit: number
+  ): Promise<DataPaginate<PoliFKTPType>> {
+    const response = await this.callEndpoint<DataPaginate<PoliFKTPType>>(
+      "poli_fktp",
+      {
+        start,
+        limit,
+      }
+    );
+    return response.data;
+  }
+
+  // # Provider
+  async getProviderRayonisasi(
+    start: number,
+    limit: number
+  ): Promise<DataPaginate<ProviderRayonisasiType>> {
+    const response = await this.callEndpoint<
+      DataPaginate<ProviderRayonisasiType>
+    >("provider_rayonisasi", {
+      start,
+      limit,
+    });
+    return response.data;
+  }
+
+  // # Status Pulang
+  async getStatusPulang(
+    rawatInap: boolean
+  ): Promise<DataPaginate<StatusPulangType>> {
+    const response = await this.callEndpoint<DataPaginate<StatusPulangType>>(
+      "status_pulang",
+      {
+        rawatInap,
+      }
+    );
+    return response.data;
+  }
+
+  // # Tindakan
+  /**
+   *
+   * @param kdTkp 10 : RJTP, 20 : RITP, 50 : Promotif
+   * @param start
+   * @param limit
+   * @returns
+   */
+  async getReferensiTindakan(
+    kdTkp: "10" | "20" | "50",
+    start: number,
+    limit: number
+  ): Promise<DataPaginate<ReferensiTIndakanType>> {
+    const response = await this.callEndpoint<
+      DataPaginate<ReferensiTIndakanType>
+    >("referensi_tindakan", {
+      kdTkp,
+      start,
+      limit,
+    });
+    return response.data;
+  }
+
+  // # Alergi
+  /**
+   *
+   * @param jenisAlergi 01:Makanan, 02:Udara, 03:Obat
+   * @returns
+   */
+  async getAlergiJenis(
+    jenisAlergi: "01" | "02" | "03"
+  ): Promise<DataArray<AlergiJenisType>> {
+    const response = await this.callEndpoint<DataArray<AlergiJenisType>>(
+      "alergi_jenis",
+      { jenisAlergi }
+    );
     return response.data;
   }
 }
