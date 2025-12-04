@@ -105,7 +105,7 @@ describe("PcareService", () => {
     //   .onGet("https://apijkn.bpjs-kesehatan.go.id/pcare-rest/diagnosa/r51/0/10")
     //   .reply(200, mockDiagnosaResponse);
 
-    const response = await pcareService.getDiagnosa("r51", 0, 10);
+    const response = await pcareService.getDiagnosa("r", 0, 10);
 
     // Validasi hasil response
     expect(response).toEqual(mockDiagnosaResponse.data);

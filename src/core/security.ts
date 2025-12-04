@@ -17,7 +17,7 @@ const generateAuthorization = (username: string, password: string) => {
   const authString = `${username}:${password}:095`;
   const base64Auth = Buffer.from(authString).toString("base64");
 
-  return base64Auth;
+  return `Basic ${base64Auth}`;
 };
 
 export const generateHeader = ({

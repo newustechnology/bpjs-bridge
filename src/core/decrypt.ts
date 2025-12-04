@@ -11,13 +11,13 @@ const decryptBpjsResponse = (
   timestamp: string
 ): DecryptedResponse => {
   try {
-    if (
-      !encryptedData ||
-      typeof encryptedData !== "string" ||
-      encryptedData.trim() === ""
-    ) {
+    if (encryptedData.trim() === "") {
       throw new Error("⚠️ Response BPJS kosong atau tidak terformat base64");
     }
+
+    // console.log("Encrypted Data:", encryptedData, cons_id, secret_key);
+
+    console.log("Timestamp:", timestamp);
 
     // Membuat key dengan SHA-256 hash dari kons_id, secret_key, dan timestamp
     const key = crypto
@@ -26,19 +26,36 @@ const decryptBpjsResponse = (
       .digest();
     const iv = key.slice(0, 16); // Mengambil 16 byte pertama untuk IV
 
+    // console.log("Decryption Key:", key.toString("hex"));
     // Dekripsi data menggunakan AES-256-CBC
     const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
-    let decrypted = decipher.update(Buffer.from(encryptedData, "base64"));
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    const decryptedText = decrypted.toString();
+
+    // console.log("decipher:", decipher);
+
+    const decrypted = decipher.update(Buffer.from(encryptedData, "base64"));
+
+    console.log("Decrypted Buffer:", decrypted);
+
+    const concated = Buffer.concat([decrypted, decipher.final()]);
+
+    // decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    console.log("Final Decrypted Buffer:", concated);
+
+    const decryptedText = concated.toString();
+    // console.log("Decrypted Text:", decryptedText);
 
     // Coba dekompresi jika memungkinkan
     const decompressedText = decompressFromEncodedURIComponent(decryptedText);
+
+    console.log("Decompressed Text:", decompressedText);
+
     const finalText = decompressedText || decryptedText;
 
     // Parsing hasil dekompresi menjadi objek JSON
     return JSON.parse(finalText);
   } catch (error: any) {
+    console.error("Error during decryption:", error);
     throw new Error(`[DECRYPT ERROR] ${error.message}`);
   }
 };

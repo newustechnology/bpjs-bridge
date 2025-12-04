@@ -6,9 +6,11 @@ import { BPJSBridgeConfig } from "../config/BPJSConfig";
 
 export class FktpService {
   private client;
+  private baseUrl: string;
 
   constructor(config: configType) {
     this.client = createBpjsClient(config); // client dari axios yang sudah disiapkan
+    this.baseUrl = config.baseUrl;
   }
 
   // Fungsi dinamis untuk mengakses endpoint berdasarkan nama dan parameter
@@ -30,10 +32,16 @@ export class FktpService {
     Object.keys(params).forEach((key) => {
       endpoint = endpoint.replace(`{${key}}`, params[key]);
     });
+
+    console.log("Final endpoint : ", endpoint);
     // Melakukan request sesuai dengan method yang ditentukan di statusConfig
     switch (endpointConfig.method as string) {
       case "GET":
-        const res = await this.client.get(endpoint);
+        // const res = await this.client.get(endpoint);
+        const res = await this.client({
+          url: endpoint,
+          method: "GET",
+        });
         console.log("seemi raw : ", res);
         return res;
       case "POST":
