@@ -1,18 +1,15 @@
-import Redis from "ioredis";
+import { redis } from "src/lib/redis";
 import { PcareService } from "../services/pcare/pcare.service";
 import { PcareConfig } from "./config";
 
 // Setup PcareService
-const pcareService = new PcareService(
-  PcareConfig,
-  new Redis({
-    host: "localhost",
-    port: 6379,
-    password: "",
-  })
-);
+const pcareService = new PcareService(PcareConfig, redis);
 
 describe("PcareService", () => {
+  it("should load environment variables", () => {
+    console.log(PcareConfig);
+    expect(PcareConfig).toBeDefined();
+  });
   it("should fetch diagnosa data", async () => {
     const response = await pcareService.getDiagnosa("r51", 0, 10);
     expect(response).toEqual(

@@ -9,4 +9,7 @@ module.exports = {
     "/node_modules/(?!your-package-to-transform|another-package).+\\.js$",
   ],
   moduleFileExtensions: ["ts", "js", "json", "node"],
+
+  // 🔥 Load dotenv test setup
+  setupFiles: ["./jest.setup.ts"],
 };
