@@ -4,7 +4,7 @@ export type configType = {
   consId: string;
   secretKey: string;
   userKey: string;
-  baseUrl: string;
+  mode: "dev" | "prod";
 };
 // src/core/configHelper.ts
 export function resolveConfig(globalCfg: configType, serviceCfg: configType) {
@@ -14,6 +14,5 @@ export function resolveConfig(globalCfg: configType, serviceCfg: configType) {
     userKey: serviceCfg?.userKey ?? globalCfg?.userKey,
     username: serviceCfg?.username ?? globalCfg?.username,
     password: serviceCfg?.password ?? globalCfg?.password,
-    baseUrl: serviceCfg?.baseUrl, // bisa null atau tidak ada
   };
 }

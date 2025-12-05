@@ -13,6 +13,7 @@ import {
   ReferensiTindakanType,
   StatusPulangType,
 } from "../../types/pcare";
+import { BaseUrl } from "../../config/enpoints";
 
 /**
  * Service untuk mengakses endpoint PCare BPJS
@@ -25,7 +26,12 @@ export class PcareService extends FktpService {
    * @param chachePrefix prefix untuk cache Redis (opsional)
    */
   constructor(config: configType, redisClient?: Redis, chachePrefix?: string) {
-    super(config, redisClient, chachePrefix ?? "pcare");
+    const getBaseUrl = BaseUrl[config.mode].url_pcare;
+    super(
+      { ...config, baseUrl: getBaseUrl },
+      redisClient,
+      chachePrefix ?? "pcare"
+    );
   }
   /**
    *

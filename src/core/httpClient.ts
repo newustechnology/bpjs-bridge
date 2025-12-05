@@ -1,10 +1,13 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { configType } from "./configHelper";
-import { generateHeader } from "./security";
 import { decryptBpjsResponse } from "./decrypt";
-import { BrigeError } from "../types/globalModle";
+import { generateHeader } from "./security";
 
-export const createBpjsClient = (config: configType) => {
+export type BpjsCLient = {
+  baseUrl: string;
+} & configType;
+
+export const createBpjsClient = (config: BpjsCLient) => {
   const client = axios.create({
     baseURL: config.baseUrl,
     timeout: 20000,

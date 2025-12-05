@@ -1,16 +1,14 @@
 import { AxiosResponse } from "axios";
-import { EndpointName, enpoints } from "../config/enpoints";
-import { createBpjsClient } from "../core/httpClient";
-import { configType } from "../core/configHelper";
-import { BPJSBridgeConfig } from "../config/BPJSConfig";
 import Redis from "ioredis";
+import { EndpointName, enpoints } from "../config/enpoints";
+import { BpjsCLient, createBpjsClient } from "../core/httpClient";
 
 export class FktpService {
   private client;
   private redisClient: Redis | null = null;
   private defaultRedisKeyPrefix = "bpjs_bridge_fktp";
 
-  constructor(config: configType, redisClient?: Redis, chachePrefix?: string) {
+  constructor(config: BpjsCLient, redisClient?: Redis, chachePrefix?: string) {
     this.client = createBpjsClient(config); // client dari axios yang sudah disiapkan
     if (redisClient) {
       this.redisClient = redisClient;

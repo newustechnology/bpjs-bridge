@@ -24,7 +24,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npx jest",
+    "test": "npx jest --detectOpenHandles",
     "prepare": "npm run build"
   },
   "dependencies": {
