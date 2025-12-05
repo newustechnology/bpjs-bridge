@@ -2,6 +2,17 @@
 import Redis from "ioredis";
 import { configType } from "../../core/configHelper";
 import { FktpService } from "../fktp.service";
+import { DataArray, DataPaginate } from "../../types/global";
+import {
+  AlergiJenisType,
+  Diagnose,
+  GetDPHOType,
+  PoliFKTPType,
+  PrognosaType,
+  ProviderRayonisasiType,
+  ReferensiTindakanType,
+  StatusPulangType,
+} from "../../types/pcare";
 
 /**
  * Service untuk mengakses endpoint PCare BPJS
@@ -75,8 +86,8 @@ export class PcareService extends FktpService {
     kodeNamaDPHO: string,
     start: number,
     limit: number
-  ): Promise<DataPaginate<getDPHOType>> {
-    const response = await this.callEndpoint<DataPaginate<getDPHOType>>(
+  ): Promise<DataPaginate<GetDPHOType>> {
+    const response = await this.callEndpoint<DataPaginate<GetDPHOType>>(
       "dpho",
       {
         kodeNamaDPHO,
@@ -155,9 +166,9 @@ export class PcareService extends FktpService {
     kdTkp: "10" | "20" | "50",
     start: number,
     limit: number
-  ): Promise<DataPaginate<ReferensiTIndakanType>> {
+  ): Promise<DataPaginate<ReferensiTindakanType>> {
     const response = await this.callEndpoint<
-      DataPaginate<ReferensiTIndakanType>
+      DataPaginate<ReferensiTindakanType>
     >("referensi_tindakan", {
       kdTkp,
       start,

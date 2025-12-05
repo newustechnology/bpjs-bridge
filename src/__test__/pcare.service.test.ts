@@ -1,4 +1,4 @@
-import { redis } from "src/lib/redis";
+import { redis } from "../lib/redis";
 import { PcareService } from "../services/pcare/pcare.service";
 import { PcareConfig } from "./config";
 

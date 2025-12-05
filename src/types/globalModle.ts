@@ -1,3 +1,5 @@
+import { BridgeErrorType } from "./global";
+
 export class BrigeError extends Error {
   public status: number;
   public type: BridgeErrorType;
