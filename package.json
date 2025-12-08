@@ -1,6 +1,6 @@
 {
   "name": "bpjs-bridge",
-  "version": "1.0.01",
+  "version": "1.0.2",
   "description": "Bridging BPJS Kesehatan modular untuk Node.js / TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
