@@ -68,13 +68,15 @@ export class KunjunganModule {
    * @description
    * untuk mendapatkan referensi tacc
    */
-  ref_tacc(kodediags?: string[]) {
+  async ref_tacc(kodediags?: string[]) {
     let options: string[] = [];
     if (kodediags) {
-      kodediags.forEach(async (kodediag) => {
-        const diag = await this.parent.diagnosa.get(kodediag, 0, 1);
-        options.push(`${diag.list[0].kdDiag}-${diag.list[0].nmDiag}`);
-      });
+      options = await Promise.all(
+        kodediags.map(async (kodediag) => {
+          const diag = await this.parent.diagnosa.get(kodediag, 0, 1);
+          return `${diag.list[0].kdDiag}-${diag.list[0].nmDiag}`;
+        })
+      );
     }
     return [
       { kdTacc: "-1", nmTacc: "Tanpa TACC", alasanTacc: [] },
