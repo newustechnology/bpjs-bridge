@@ -20,12 +20,12 @@ export const createBpjsClient = (config: BpjsCLient) => {
     req.headers["X-cons-id"] = headers["X-cons-id"];
     req.headers["X-timestamp"] = headers["X-timestamp"];
     req.headers["X-signature"] = headers["X-signature"];
+    req.headers["X-authorization"] = headers["X-Authorization"];
     req.headers["X-Authorization"] = headers["X-Authorization"];
     req.headers.user_key = headers["userKey"];
     req.headers.Accept = headers["Accept"];
     req.headers["User-Agent"] = "BPJS-Bridge-Client/1.0";
     req.headers["Accept-Encoding"] = "gzip, compress, deflate, br";
-
     return req;
   });
 

@@ -1,39 +1,53 @@
-export const enpoints = [
+type endpointType = {
+  name: string;
+  endpoint: string;
+  method: string;
+  description: string;
+  cacheDuration?: number;
+};
+
+export const enpoints: endpointType[] = [
   {
     name: "diagnosa",
     endpoint: "diagnosa/{kodediag}/{start}/{limit}",
     method: "GET",
     description: "Get Data Diagnosa dari BPJS PCare",
+    cacheDuration: 60,
   },
   {
     name: "alergi_jenis",
     endpoint: "alergi/jenis/{jenisAlergi}",
     method: "GET",
     description: "Get Data Alergi berdasarkan jenis",
+    cacheDuration: 60,
   },
   {
     name: "dokter",
     endpoint: "dokter/{start}/{limit}",
     method: "GET",
     description: "Get Data Dokter dari BPJS PCare",
+    cacheDuration: 3600,
   },
   {
     name: "kesadaran",
     endpoint: "kesadaran",
     method: "GET",
     description: "Get Data Kesadaran dari BPJS PCare",
+    cacheDuration: 3600,
   },
   {
     name: "rujukan_kunjungan",
     endpoint: "kunjungan/rujukan/{nomorKunjungan}",
     method: "GET",
     description: "Get Data Rujukan berdasarkan Nomor Kunjungan",
+    cacheDuration: 60,
   },
   {
     name: "riwayat_kunjungan",
     endpoint: "kunjungan/peserta/{nomorKartu}",
     method: "GET",
     description: "Get Data Riwayat Kunjungan berdasarkan Nomor Kartu Peserta",
+    cacheDuration: 60,
   },
   {
     name: "tambah_kunjungan",
@@ -58,12 +72,14 @@ export const enpoints = [
     endpoint: "obat/dpho/{kodeNamaDPHO}/{start}/{limit}",
     method: "GET",
     description: "Get Data DPHO dari BPJS PCare berdasarkan kode atau nama",
+    cacheDuration: 3600,
   },
   {
     name: "obat_kunjungan",
     endpoint: "obat/kunjungan/{nomorKunjungan}",
     method: "GET",
     description: "Get Data Obat berdasarkan Nomor Kunjungan",
+    cacheDuration: 60,
   },
   {
     name: "tambah_obat",
@@ -82,6 +98,7 @@ export const enpoints = [
     endpoint: "provider/{start}/{limit}",
     method: "GET",
     description: "Get Data Provider Rayonisasi dari BPJS PCare",
+    cacheDuration: 3600,
   },
   {
     name: "icare_validate",
@@ -101,12 +118,14 @@ export const enpoints = [
     method: "GET",
     description:
       "Get Data Pendaftaran berdasarkan Nomor Urut dan Tanggal Daftar",
+    cacheDuration: 60,
   },
   {
     name: "pendaftaran_provider",
     endpoint: "pendaftaran/tglDaftar/{tglDaftar}/{start}/{limit}",
     method: "GET",
     description: "Get Data Pendaftaran berdasarkan tanggal, start, dan limit",
+    cacheDuration: 60,
   },
   {
     name: "tambah_pendaftaran",
@@ -127,6 +146,7 @@ export const enpoints = [
     endpoint: "peserta/{noKartu}",
     method: "GET",
     description: "Get Data Peserta berdasarkan Nomor Kartu Peserta",
+    cacheDuration: 3600,
   },
   {
     name: "peserta_nik_noka",
@@ -134,36 +154,42 @@ export const enpoints = [
     method: "GET",
     description:
       "Get Data Peserta berdasarkan Jenis Kartu (NIK/NOKA) dan Nomor Identitas",
+    cacheDuration: 3600,
   },
   {
     name: "poli_fktp",
     endpoint: "poli/fktp/{start}/{limit}",
     method: "GET",
     description: "Get Data Poli FKTP dari BPJS PCare",
+    cacheDuration: 3600,
   },
   {
     name: "prognosa",
     endpoint: "prognosa",
     method: "GET",
     description: "Get Data Prognosa dari BPJS PCare",
+    cacheDuration: 3600,
   },
   {
     name: "status_pulang",
     endpoint: "statuspulang/rawatInap/{rawatInap}",
     method: "GET",
     description: "Get Status Pulang berdasarkan Rawat Inap (true/false)",
+    cacheDuration: 3600,
   },
   {
     name: "tindakan_kunjungan",
     endpoint: "tindakan/kunjungan/{nomorKunjungan}",
     method: "GET",
     description: "Get Data Tindakan berdasarkan Nomor Kunjungan",
+    cacheDuration: 60,
   },
   {
     name: "referensi_tindakan",
     endpoint: "tindakan/kdTkp/{kdTkp}/{start}/{limit}",
     method: "GET",
     description: "Get Data Referensi Tindakan berdasarkan kdTkp",
+    cacheDuration: 3600,
   },
   {
     name: "tambah_tindakan",
@@ -189,24 +215,28 @@ export const enpoints = [
     endpoint: "spesialis",
     method: "GET",
     description: "Get Data Referensi Spesialis",
+    cacheDuration: 3600,
   },
   {
     name: "referensi_subspesialis",
     endpoint: "spesialis/{kdSpesialis}/subspesialis",
     method: "GET",
     description: "Get Data Referensi Sub Spesialis berdasarkan Kode Spesialis",
+    cacheDuration: 3600,
   },
   {
     name: "referensi_sarana",
     endpoint: "spesialis/sarana",
     method: "GET",
     description: "Get Data Referensi Sarana",
+    cacheDuration: 3600,
   },
   {
     name: "referensi_khusus",
     endpoint: "spesialis/khusus",
     method: "GET",
     description: "Get Data Referensi Khusus",
+    cacheDuration: 3600,
   },
   {
     name: "rujuk_subspesialis",
@@ -214,6 +244,7 @@ export const enpoints = [
       "spesialis/rujuk/subspesialis/{kdSubSpesialis}/sarana/{kdSarana}/tglEstRujuk/{tglEstRujuk}",
     method: "GET",
     description: "Get Data Faskes Rujukan Sub Spesialis",
+    cacheDuration: 3600,
   },
   {
     name: "rujuk_khusus",
@@ -221,6 +252,7 @@ export const enpoints = [
       "spesialis/rujuk/khusus/{kdKhusus}/noKartu/{noKartu}/tglEstRujuk/{tglEstRujuk}",
     method: "GET",
     description: "Get Data Faskes Rujukan Khusus",
+    cacheDuration: 3600,
   },
   {
     name: "rujuk_khusus_subspesialis",
@@ -228,18 +260,14 @@ export const enpoints = [
       "spesialis/rujuk/khusus/{kdKhusus}/subspesialis/{kdSubSpesialis}/noKartu/{noKartu}/tglEstRujuk/{tglEstRujuk}",
     method: "GET",
     description: "Get Data Faskes Rujukan Khusus untuk THALASEMIA dan HEMOFILI",
-  },
-  {
-    name: "status_pulang",
-    endpoint: "statuspulang/rawatInap/{rawatInap}",
-    method: "GET",
-    description: "Get Data Status Pulang berdasarkan Rawat Inap (true/false)",
+    cacheDuration: 3600,
   },
   {
     name: "mcu_kunjungan",
     endpoint: "MCU/kunjungan/{nomorKunjungan}",
     method: "GET",
     description: "Get Data MCU berdasarkan Nomor Kunjungan",
+    cacheDuration: 60,
   },
   {
     name: "tambah_mcu",
@@ -265,6 +293,7 @@ export const enpoints = [
     method: "GET",
     description:
       "Get Data Club Prolanis berdasarkan Kode Jenis Kelompok (01: Diabetes Melitus, 02: Hipertensi)",
+    cacheDuration: 3600,
   },
   {
     name: "get_kegiatan_kelompok",
@@ -272,12 +301,14 @@ export const enpoints = [
     method: "GET",
     description:
       "Get Data Kegiatan Kelompok berdasarkan tanggal (format: dd-mm-yyyy)",
+    cacheDuration: 60,
   },
   {
     name: "get_peserta_kegiatan_kelompok",
     endpoint: "kelompok/peserta/{eduId}",
     method: "GET",
     description: "Get Data Peserta Kegiatan Kelompok berdasarkan eduId",
+    cacheDuration: 60,
   },
   {
     name: "add_kegiatan_kelompok",
@@ -309,6 +340,7 @@ export const enpoints = [
     endpoint: "ref/poli/tanggal/{tanggal}",
     method: "GET",
     description: "Melihat referensi poli pada layanan antrean (WS Antrol)",
+    cacheDuration: 60,
   },
   {
     name: "ref_dokter_antrol",
@@ -316,6 +348,7 @@ export const enpoints = [
     method: "GET",
     description:
       "Melihat daftar dokter berdasarkan poli dan tanggal (WS Antrol)",
+    cacheDuration: 60,
   },
   {
     name: "tambah_antrean",
@@ -341,6 +374,7 @@ export const enpoints = [
     method: "GET",
     description:
       "Mengambil data rekapitulasi hasil Skrining Riwayat Kesehatan per penyakit",
+    cacheDuration: 60,
   },
   {
     name: "scrinning_peserta",
@@ -348,18 +382,21 @@ export const enpoints = [
     method: "GET",
     description:
       "Mengambil data rekapitulasi Skrining Riwayat Kesehatan per peserta",
+    cacheDuration: 60,
   },
   {
     name: "scrinning_diabetes_mellitus",
     endpoint: "/skrinning/prolanis/dm/{nomor_peserta}/{start}/{limit}",
     method: "GET",
     description: "Mengambil data peserta prolanis DM sejak tahun 2017",
+    cacheDuration: 60,
   },
   {
     name: "scrinning_hipertensi",
     endpoint: "skrinning/prolanis/ht/{nomor_peserta}/{start}/{limit}",
     method: "GET",
     description: "Mengambil data peserta prolanis HT sejak tahun 2017",
+    cacheDuration: 60,
   },
 ] as const;
 

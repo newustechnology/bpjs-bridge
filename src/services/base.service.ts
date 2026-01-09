@@ -44,7 +44,7 @@ export class BaseService {
   private async set<T>(
     key: string,
     value: T,
-    expInSecond: number = 3600
+    expInSecond?: number
   ): Promise<void> {
     if (typeof expInSecond !== "number") {
       expInSecond = 3600;
@@ -113,7 +113,7 @@ export class BaseService {
    * @param pattern - Pola kunci untuk menghapus (misal: 'user_*' untuk menghapus semua kunci yang diawali 'user_')
    * Menghapus beberapa kunci berdasarkan pola (pattern)
    */
-  private async deleteKeysByPattern(pattern: string) {
+  public async deleteKeysByPattern(pattern: string) {
     try {
       let cursor = "0";
       pattern = this.defaultRedisKeyPrefix + ":" + pattern;
@@ -143,7 +143,7 @@ export class BaseService {
   /**
    * Membersihkan seluruh cache Redis
    */
-  private async flushAll(): Promise<void> {
+  public async flushAll(): Promise<void> {
     try {
       await this.redisClient!.flushall();
       console.info("🧹 Redis cache cleared!");
@@ -204,20 +204,32 @@ export class BaseService {
           });
 
           if (this.redisClient && typeof res.data !== "string") {
-            await this.set(cacheKey, res.data);
+            await this.set(
+              cacheKey,
+              res.data,
+              endpointConfig?.cacheDuration ?? undefined
+            );
           }
           return res;
         case "POST":
-          return await this.client.post(endpoint, body);
+          return await this.client.post(endpoint, body, {
+            headers: {
+              "Content-Type": "text/plain",
+            },
+          });
         case "PUT":
-          return await this.client.put(endpoint, body);
+          return await this.client.put(endpoint, body, {
+            headers: {
+              "Content-Type": "text/plain",
+            },
+          });
         case "DELETE":
           return await this.client.delete(endpoint, body);
         default:
           throw new BpjsEndpointNotFoundError(name);
       }
     } catch (error) {
-      // console.log("Error in callEndpoint:", error);
+      console.log("Error in callEndpoint:", error);
       throw BpjsErrorFactory.fromAxios(error);
     }
   }
